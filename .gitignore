@@ -1,1 +1,7 @@
 /.idea/
+/server/node_modules/
+/server/.env
+/server/audio_example.mp3
+/server/audio_test.mp3
+/server/public/
+/server/uploads/
