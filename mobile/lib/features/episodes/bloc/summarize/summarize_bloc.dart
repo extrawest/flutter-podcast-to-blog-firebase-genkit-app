@@ -23,6 +23,7 @@ class SummarizeBloc extends Bloc<SummarizeEvent, SummarizeState> {
       String summary = await _apiService.getEpisodeSummary(id: event.id);
 
       emit(SummarizeLoaded(summary: summary));
+
       if (summary.isNotEmpty) {
         final audioBytes = await _apiService.getAudio(summary: summary);
         final filePath = await _apiService.saveRawResponse(audioBytes);

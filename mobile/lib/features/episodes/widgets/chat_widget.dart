@@ -37,9 +37,11 @@ class ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('speechToText: $speechToText');
-    final speechToTextState = context.watch<SpeechToTextBloc>().state;
 
+    final speechToTextState = context.watch<SpeechToTextBloc>().state;
+    if (speechToTextState is SpeechToTextLoaded) {
+      speechToText = speechToTextState.text;
+    }
     return speechToTextState is SpeechToTextLoading
         ? const Column(
             children: [

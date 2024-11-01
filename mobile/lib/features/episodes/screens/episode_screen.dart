@@ -43,7 +43,6 @@ class _EpisodeScreenState extends State<EpisodeScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    log('item: ${widget.item.enclosureUrl}');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.item.title ?? ''),

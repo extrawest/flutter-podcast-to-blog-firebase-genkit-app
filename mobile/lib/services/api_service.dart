@@ -6,7 +6,6 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
-import '../features/episodes/models/translation.dart';
 import '../features/podcast/models/podcast_model.dart';
 
 const String baseUrl = 'http://localhost:3000/api';
@@ -129,13 +128,11 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-
-      result = TranslationResponse.fromJson(jsonResponse);
+      result = jsonDecode(response.body);
     } else {
       result = 'Failed to fetch summary';
     }
-    return result.translationText;
+    return result;
   }
 
   Future<Uint8List> getImage({
@@ -174,22 +171,18 @@ class ApiService {
     final response = await http.post(
       Uri.parse('http://localhost:3000/api/chat'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'messages': [
-          {
-            "role": "system",
-            "content": "You are a friendly chatbot answering questions about this subject: $context",
-          },
-          {'role': 'user', 'content': message}
-        ],
-      }),
+      body: jsonEncode({"message": message, "context": context}),
     );
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
-      result = jsonResponse['response'].toString();
+
+      // Parse the response string as JSON
+      final responseJson = jsonDecode(jsonResponse['response']);
+
+      result = responseJson['result'].toString();
     } else {
-      result = 'Failed to fetch image';
+      result = 'Failed to fetch chat';
     }
     return result;
   }
