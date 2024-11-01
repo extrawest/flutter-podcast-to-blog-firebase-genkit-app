@@ -18,6 +18,16 @@
 - Huggingface speech-to-text with openai/whisper-large-v3-turbo model
 - Firebase Genkit Ai chat completion with gemini15Flash
 
+## Preview
+
+  <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/search.gif" alt="Preview" width="400"/>
+  
+  <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/image_&_text.gif" alt="Preview" width="400"/>
+  
+  <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/summry&audio.gif" alt="Preview" width="400"/>
+  
+  <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/chat.gif" alt="Preview" width="400"/>
+  
 ## Installing:
 **1. Clone this repo to your folder:**
 
