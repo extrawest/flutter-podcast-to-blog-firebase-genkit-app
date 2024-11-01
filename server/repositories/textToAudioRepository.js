@@ -27,7 +27,6 @@ export class TextToAudioRepository {
         );
 
         const audioBuffer = await this.streamToBuffer(response);
-        console.log('Audio buffer length:', audioBuffer.length);
         return audioBuffer;
     }
 

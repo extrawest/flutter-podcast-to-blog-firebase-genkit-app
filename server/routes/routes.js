@@ -20,15 +20,9 @@ router.post('/image', async (req, res) => {
     const imageRepository = new ImageRepository();
     try {
         const { text } = req.body;
-
-        console.log('text>>:', text);
         const image = await imageRepository.performTextToImage(text);
-        console.log('image route response:', image);
-
         res.json({ image: image });
     } catch (error) {
-        console.error('Error in /image:', error);
-        console.error('Error stack:', error.stack);
         res.status(500).json({ error: error.message, stack: error.stack });
     }
 });
@@ -62,7 +56,6 @@ router.post('/episodes', async (req, res) => {
             offset,
         });
 
-        console.log('Podcast:', searchTerm);
         res.json(podcast);
     } catch (error) {
         console.error('Error in /episodes:', error);
@@ -86,18 +79,15 @@ router.post('/episode_summary', async (req, res) => {
         const podcast = await podcastIndexRepository.performEpisodesByIdSearch(
             searchTerm
         );
-        console.log('Podcast:', podcast.episode.enclosureUrl);
 
         const fileUrl = podcast.episode.enclosureUrl;
         const localFilePath = await speechToTextRepository.performDownloadFile(
             fileUrl
         );
-        console.log('File downloaded to:', localFilePath);
 
         const text = await speechToTextRepository.performSpeechToText(
             localFilePath
         );
-        console.log('Speech to text result:', text);
 
         // await summaryRepository.init();
         const summary = await summaryRepository.performSummarization(text);
@@ -122,20 +112,16 @@ router.post('/episode_speech_to_text', async (req, res) => {
 
         const { searchTerm, limit, offset } = req.body;
 
-        console.log('episodeSummarize>>:', searchTerm);
         const podcast = await podcastIndexRepository.performEpisodesByIdSearch(
             searchTerm
         );
-        console.log('Podcast:', podcast.episode.enclosureUrl);
         const fileUrl = podcast.episode.enclosureUrl;
         const localFilePath = await speechToTextRepository.performDownloadFile(
             fileUrl
         );
-        console.log('File downloaded to:', localFilePath);
         const text = await speechToTextRepository.performSpeechToText(
             localFilePath
         );
-        console.log('Speech to text result:', text);
 
         res.json(text);
     } catch (error) {
@@ -152,7 +138,6 @@ router.post('/audio_summary', async (req, res) => {
 
     try {
         const { summaryText } = req.body;
-        console.log('audio_summary>>:', summaryText);
 
         const audioBuffer = await textToAudioRepository.performTextToAudio(
             summaryText
@@ -161,26 +146,23 @@ router.post('/audio_summary', async (req, res) => {
         res.set('Content-Type', 'audio/mpeg');
         res.send(audioBuffer);
     } catch (error) {
-        console.error('Error in /audio_summary:', error);
         res.status(500).json({ error: error.message });
     }
 });
 router.post('/summary_translation', async (req, res) => {
+    const translationRepository = new TranslationRepository();
+
+    const { text } = req.body;
+
+    if (typeof text !== 'string' || text.trim().length === 0) {
+        return res.status(400).json({
+            error: 'Invalid input: text must be a non-empty string',
+        });
+    }
     try {
-        const translationRepository = new TranslationRepository();
-
-        const { text } = req.body;
-
-        if (typeof text !== 'string' || text.trim().length === 0) {
-            return res.status(400).json({
-                error: 'Invalid input: text must be a non-empty string',
-            });
-        }
-
         const translation = await translationRepository.performTranslation(
             text
         );
-        console.log('Translation result:', translation);
 
         res.json(translation);
     } catch (error) {
@@ -190,17 +172,17 @@ router.post('/summary_translation', async (req, res) => {
 });
 
 router.post('/chat', async (req, res) => {
+    const chatRepository = new ChatRepository();
+
+    const { message, context } = req.body;
+
+    if (!message) {
+        return res.status(400).json({
+            error: 'Message is required.',
+        });
+    }
+
     try {
-        const chatRepository = new ChatRepository();
-
-        const { message, context } = req.body;
-
-        if (!message) {
-            return res.status(400).json({
-                error: 'Message is required.',
-            });
-        }
-
         if (context === undefined) {
             console.warn('Context is undefined, using empty string');
         }
@@ -209,7 +191,6 @@ router.post('/chat', async (req, res) => {
             message,
             context || ''
         );
-        console.log('chat route response:', response);
 
         res.json({ response });
     } catch (error) {

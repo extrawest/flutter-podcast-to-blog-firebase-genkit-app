@@ -16,19 +16,13 @@ export class SpeechToTextRepository {
 
     async init() {
         if (this.isInitialized) {
-            console.warn('SpeechToTextRepository is already initialized');
             return;
         }
 
         try {
             this.hfClient = this.huggingFaceRepository.getClient();
             this.isInitialized = true;
-            console.log('SpeechToTextRepository initialized successfully');
         } catch (error) {
-            console.error(
-                'Failed to initialize Hugging Face repository:',
-                error
-            );
             throw new Error('Initialization error: ' + error.message);
         }
     }
@@ -42,7 +36,6 @@ export class SpeechToTextRepository {
             });
             return response.data;
         } catch (error) {
-            console.error('Error fetching audio data:', error);
             throw new Error('Failed to fetch audio data: ' + error.message);
         }
     }
@@ -82,7 +75,6 @@ export class SpeechToTextRepository {
                 throw new Error('Unexpected speech-to-text result format');
             }
         } catch (error) {
-            console.error('Error transcribing chunk:', error);
             throw new Error('Transcription failed: ' + error.message);
         }
     }
@@ -95,7 +87,6 @@ export class SpeechToTextRepository {
         }
 
         try {
-            console.log('filePath:', filePath);
             const fileSize = fs.statSync(filePath).size;
             const chunks = Math.ceil(fileSize / chunkSize);
             let fullTranscription = '';
@@ -117,7 +108,6 @@ export class SpeechToTextRepository {
 
             return fullTranscription.trim();
         } catch (error) {
-            console.error('Error in performSpeechToText:', error);
             throw new Error(
                 'Speech to text conversion failed: ' + error.message
             );
@@ -144,7 +134,6 @@ export class SpeechToTextRepository {
                 writer.on('error', reject);
             });
         } catch (error) {
-            console.error('Error downloading file:', error);
             throw new Error('File download failed: ' + error.message);
         }
     }
@@ -156,7 +145,6 @@ export class SpeechToTextRepository {
     reset() {
         this.hfClient = null;
         this.isInitialized = false;
-        console.log('SpeechToTextRepository reset');
     }
 }
 

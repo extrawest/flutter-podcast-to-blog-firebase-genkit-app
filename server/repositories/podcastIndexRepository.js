@@ -10,7 +10,6 @@ export class PodcastIndexRepository {
 
     initClient() {
         if (!this.apiKey || !this.apiSecret) {
-            console.error('Podcast Index API key or secret is missing');
             return false;
         }
 
@@ -22,7 +21,6 @@ export class PodcastIndexRepository {
             });
             return true;
         } catch (error) {
-            console.error('Failed to initialize Podcast Index client:', error);
             return false;
         }
     }
@@ -31,7 +29,6 @@ export class PodcastIndexRepository {
         if (!this.client) {
             throw new Error('Podcast Index client is not initialized');
         }
-        console.log('searchTerm>>:', searchTerm);
         const result = await this.client.episodesByItunesId(searchTerm, {
             max: 10,
         });

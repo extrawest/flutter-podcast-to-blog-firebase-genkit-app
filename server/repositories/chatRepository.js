@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
+import constants from '../consts.js';
 
 export class ChatRepository {
     constructor() {}
 
     async performChat(message, context) {
-        const url = 'https://chatflow-b74e5wflra-uc.a.run.app';
         const requestBody = {
             data: {
                 messages: [
@@ -35,10 +35,8 @@ export class ChatRepository {
             },
         };
 
-        console.log('Request body:', JSON.stringify(requestBody, null, 2));
-
         try {
-            const response = await fetch(url, {
+            const response = await fetch(constants.CHAT_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,18 +46,15 @@ export class ChatRepository {
 
             if (!response.ok) {
                 const errorBody = await response.text();
-                console.error('Error response body:', errorBody);
                 throw new Error(
                     `HTTP error! status: ${response.status}, body: ${errorBody}`
                 );
             }
 
             const result = await response.text();
-            console.log('chat result:', result);
 
             return result;
         } catch (error) {
-            console.error('Error in performChat:', error);
             throw error;
         }
     }

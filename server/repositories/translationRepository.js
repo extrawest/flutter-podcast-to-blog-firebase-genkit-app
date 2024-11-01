@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import constants from '../consts.js';
+
 export class TranslationRepository {
     constructor() {}
 
@@ -6,11 +8,8 @@ export class TranslationRepository {
         if (typeof text !== 'string') {
             throw new Error('Input text must be a string');
         }
-
-        const url = 'https://translationflow-b74e5wflra-uc.a.run.app';
-
         try {
-            const response = await fetch(url, {
+            const response = await fetch(constants.TRANSLATION_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +24,6 @@ export class TranslationRepository {
             }
 
             const result = await response.json();
-            console.log('Raw cloud function result:', result.result);
             if (result && result.result) {
                 return result.result;
             } else {
@@ -34,7 +32,6 @@ export class TranslationRepository {
                 );
             }
         } catch (error) {
-            console.error('Error calling summarize cloud function:', error);
             throw new Error(
                 'Cloud function summarization failed: ' + error.message
             );

@@ -1,16 +1,14 @@
 import 'dotenv/config';
+import constants from '../consts.js';
+
 export class SummarizerRepository {
     constructor() {}
-
     async performSummarization(text) {
         if (typeof text !== 'string') {
             throw new Error('Input text must be a string');
         }
-
-        const url = 'https://summarizeflow-b74e5wflra-uc.a.run.app';
-
         try {
-            const response = await fetch(url, {
+            const response = await fetch(constants.SUMMARIZE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
