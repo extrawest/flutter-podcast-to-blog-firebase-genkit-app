@@ -20,12 +20,16 @@
 
 ## Preview
 
+1. Podcast Index Search demo
   <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/search.gif" alt="Preview" width="400"/>
   
+2. Speech to text and image generation with imagen2 and gemini15Flash models
   <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/image_&_text.gif" alt="Preview" width="400"/>
   
+3. Text to speech and image generation with elevenlabs model 
   <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/summry&audio.gif" alt="Preview" width="400"/>
   
+4. Chat with gemini15Flash model 
   <img src="https://github.com/extrawest/flutter-podcast-to-blog-ai-app/blob/main/demo/chat.gif" alt="Preview" width="400"/>
   
 ## Installing:
