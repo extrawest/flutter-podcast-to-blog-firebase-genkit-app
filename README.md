@@ -83,12 +83,6 @@ Go to app/lib/services/api_service.dart and change the baseUrl to your server pa
 
 Now you can use the app
 
-## Preview
-![Preview](https://gitlab.extrawest.com/i-training/flutter/podcast-to-blog-ai-app/-/blob/flutter_ui/demo/search.gif)
-![Preview](https://gitlab.extrawest.com/i-training/flutter/podcast-to-blog-ai-app/-/blob/flutter_ui/demo/image_&_text.gif)
-![Preview](https://gitlab.extrawest.com/i-training/flutter/podcast-to-blog-ai-app/-/blob/flutter_ui/demo/summry&audio.gif)
-![Preview](https://gitlab.extrawest.com/i-training/flutter/podcast-to-blog-ai-app/-/blob/flutter_ui/demo/chat.gif)
-
 
 Created by Oleksandr Samoilenko
 
